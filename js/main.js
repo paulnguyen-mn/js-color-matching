@@ -1,12 +1,12 @@
-import { getRandomColorPairs } from "./colorHelper.js";
+import { getRandomColorPairs } from './colorHelper.js';
 
 (function () {
   const GAME_STATE = {
     PENDING: 'pending',
     PLAYING: 'playing',
     BLOCKING: 'blocking',
-    FINISHED: 'finished'
-  }
+    FINISHED: 'finished',
+  };
 
   // Game state
   const PAIRS_COUNT = 8;
@@ -25,7 +25,7 @@ import { getRandomColorPairs } from "./colorHelper.js";
   const playAgainButton = document.querySelector('.game .game__button');
   const colorBackground = document.querySelector('.color-background');
 
-  const init = () => { }
+  const init = () => {};
 
   init();
 })();
