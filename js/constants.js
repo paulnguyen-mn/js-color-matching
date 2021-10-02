@@ -3,7 +3,7 @@ export const GAME_STATUS = {
   PLAYING: 'playing',
   BLOCKING: 'blocking',
   FINISHED: 'finished',
-};
+}
 
-export const PAIRS_COUNT = 8;
-export const GAME_TIME = 30;
+export const PAIRS_COUNT = 8
+export const GAME_TIME = 30

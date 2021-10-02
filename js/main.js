@@ -1,8 +1,8 @@
-import { GAME_STATUS } from './constants';
+import { GAME_STATUS } from './constants'
 
 // Global variables
-let selections = [];
-let gameState = GAME_STATUS.PLAYING;
+let selections = []
+let gameState = GAME_STATUS.PLAYING
 
 // TODOs
 // 1. Generating colors using https://github.com/davidmerfield/randomColor
