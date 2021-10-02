@@ -59,6 +59,10 @@
   cursor: pointer;
 }
 
+.game__button.show {
+  display: inline-block;
+}
+
 .game__button:hover {
   opacity: 0.9;
 }
@@ -89,7 +93,7 @@
 }
 
 .color-list > li .overlay {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
