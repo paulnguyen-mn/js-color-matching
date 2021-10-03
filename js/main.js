@@ -9,6 +9,7 @@ import {
   createTimer,
   getRandomColorPairs,
   hidePlayAgainButton,
+  setBackgroundColor,
   setTimerText,
   showPlayAgainButton,
 } from './utils.js'
@@ -63,6 +64,9 @@ function handleColorClick(liElement) {
   const isMatch = firstColor === secondColor
 
   if (isMatch) {
+    // can use either first or second color (as they are the same)
+    setBackgroundColor(firstColor)
+
     const isWin = getInActiveColorList().length === 0
     if (isWin) {
       showPlayAgainButton()
@@ -139,6 +143,9 @@ function resetGame() {
 
   // re-generate new colors
   initColors()
+
+  // reset background color
+  setBackgroundColor('goldenrod')
 
   // start a new game
   startTimer()
