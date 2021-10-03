@@ -17,8 +17,7 @@ import {
 let selections = []
 let gameStatus = GAME_STATUS.PLAYING
 let timer = createTimer({
-  // seconds: GAME_TIME,
-  seconds: 60,
+  seconds: GAME_TIME,
   onChange: handleTimerChange,
   onFinish: handleTimerFinish,
 })
@@ -29,7 +28,6 @@ function handleTimerChange(second) {
 }
 
 function handleTimerFinish() {
-  console.log('finished')
   gameStatus = GAME_STATUS.FINISHED
   setTimerText('Game Over 😭')
 }
@@ -88,7 +86,10 @@ function handleColorClick(liElement) {
     // reset selections for the next turn
     selections = []
 
-    gameStatus = GAME_STATUS.PLAYING
+    // race-condition check with handleTimerFinish
+    if (gameStatus !== GAME_STATUS.FINISHED) {
+      gameStatus = GAME_STATUS.PLAYING
+    }
   }, 500)
 }
 
