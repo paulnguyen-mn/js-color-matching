@@ -1,4 +1,4 @@
-import { GAME_STATUS, PAIRS_COUNT } from './constants.js'
+import { GAME_STATUS, GAME_TIME, PAIRS_COUNT } from './constants.js'
 import {
   getColorElementList,
   getColorListElement,
@@ -6,6 +6,7 @@ import {
   getPlayAgainButton,
 } from './selectors.js'
 import {
+  createTimer,
   getRandomColorPairs,
   hidePlayAgainButton,
   setTimerText,
@@ -15,6 +16,23 @@ import {
 // Global variables
 let selections = []
 let gameStatus = GAME_STATUS.PLAYING
+let timer = createTimer({
+  // seconds: GAME_TIME,
+  seconds: 60,
+  onChange: handleTimerChange,
+  onFinish: handleTimerFinish,
+})
+
+function handleTimerChange(second) {
+  const fullSecond = `0${second}`.slice(-2)
+  setTimerText(fullSecond)
+}
+
+function handleTimerFinish() {
+  console.log('finished')
+  gameStatus = GAME_STATUS.FINISHED
+  setTimerText('Game Over 😭')
+}
 
 // TODOs
 // 1. Generating colors using https://github.com/davidmerfield/randomColor
@@ -50,6 +68,7 @@ function handleColorClick(liElement) {
     if (isWin) {
       showPlayAgainButton()
       setTimerText('YOU WIN! 🎉')
+      timer.clear()
 
       gameStatus = GAME_STATUS.FINISHED
     }
@@ -118,6 +137,9 @@ function resetGame() {
 
   // re-generate new colors
   initColors()
+
+  // start a new game
+  startTimer()
 }
 
 function attachEventForPlayAgainButton() {
@@ -127,10 +149,14 @@ function attachEventForPlayAgainButton() {
   playAgainButton.addEventListener('click', resetGame)
 }
 
+function startTimer() {
+  timer.start()
+}
+
 // main
 ;(() => {
   initColors()
-
   attachEventForColorList()
   attachEventForPlayAgainButton()
+  startTimer()
 })()
