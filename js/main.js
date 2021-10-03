@@ -1,6 +1,16 @@
 import { GAME_STATUS, PAIRS_COUNT } from './constants.js'
-import { getColorElementList, getColorListElement, getInActiveColorList } from './selectors.js'
-import { getRandomColorPairs } from './utils.js'
+import {
+  getColorElementList,
+  getColorListElement,
+  getInActiveColorList,
+  getPlayAgainButton,
+} from './selectors.js'
+import {
+  getRandomColorPairs,
+  hidePlayAgainButton,
+  setTimerText,
+  showPlayAgainButton,
+} from './utils.js'
 
 // Global variables
 let selections = []
@@ -20,7 +30,8 @@ let gameStatus = GAME_STATUS.PLAYING
 // setTimeout 3 --> errors here
 function handleColorClick(liElement) {
   const shouldBlockClick = [GAME_STATUS.BLOCKING, GAME_STATUS.FINISHED].includes(gameStatus)
-  if (!liElement || shouldBlockClick) return
+  const isClicked = liElement.classList.contains('active')
+  if (!liElement || isClicked || shouldBlockClick) return
 
   // show color for clicked cell
   liElement.classList.add('active')
@@ -35,11 +46,12 @@ function handleColorClick(liElement) {
   const isMatch = firstColor === secondColor
 
   if (isMatch) {
-    // check win
     const isWin = getInActiveColorList().length === 0
     if (isWin) {
-      // show replay
-      // show You WIN
+      showPlayAgainButton()
+      setTimerText('YOU WIN! 🎉')
+
+      gameStatus = GAME_STATUS.FINISHED
     }
 
     selections = []
@@ -87,9 +99,38 @@ function attachEventForColorList() {
   })
 }
 
+function resetGame() {
+  // reset global vars
+  gameStatus = GAME_STATUS.PLAYING
+  selections = []
+
+  // reset DOM elements
+  // - remove active class from li
+  // - hide replay button
+  // - clear you win / timeout text
+  const colorElementList = getColorElementList()
+  for (const colorElement of colorElementList) {
+    colorElement.classList.remove('active')
+  }
+
+  hidePlayAgainButton()
+  setTimerText('')
+
+  // re-generate new colors
+  initColors()
+}
+
+function attachEventForPlayAgainButton() {
+  const playAgainButton = getPlayAgainButton()
+  if (!playAgainButton) return
+
+  playAgainButton.addEventListener('click', resetGame)
+}
+
 // main
 ;(() => {
   initColors()
 
   attachEventForColorList()
+  attachEventForPlayAgainButton()
 })()
