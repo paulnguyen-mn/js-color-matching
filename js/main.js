@@ -30,6 +30,7 @@ function handleTimerChange(second) {
 function handleTimerFinish() {
   gameStatus = GAME_STATUS.FINISHED
   setTimerText('Game Over 😭')
+  showPlayAgainButton()
 }
 
 // TODOs
