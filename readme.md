@@ -6,6 +6,7 @@ DEMO: [https://color-matching-game.vercel.app/](https://color-matching-game.verc
 
 ![color matching game](./images/thumbnail.png)
 
+
 ## Game rule 
 
 - Has only one mode, one level. You need to find all matched colors in 30s.
