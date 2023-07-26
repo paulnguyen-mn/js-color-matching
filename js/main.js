@@ -4,6 +4,8 @@ import { GAME_STATUS } from './constants'
 let selections = []
 let gameState = GAME_STATUS.PLAYING(() => {})()
 
+(() => {})()
+
 // TODOs
 // 1. Generating colors using https://github.com/davidmerfield/randomColor
 // 2. Attach item click for all li elements
